@@ -3,8 +3,8 @@
 
 This is my repo for STATS 220. Here's a little about me:
 
-- **Bold**: I am undertaking a degree in *Mathematics*.
-- **Italic**: I am taking STATS 220 because I'm very interested in data and numbers.
+- **Major**: I am undertaking a degree in *Mathematics*.
+- **Reason**: I am taking STATS 220 because I'm very interested in data and numbers.
 
 ### My Interests
 1. When I play games, I open the data in the game, such as network latency and fps.
