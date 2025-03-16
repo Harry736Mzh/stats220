@@ -15,4 +15,4 @@ My love for statistics is
 ![Fun Statistics GIF](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3p6Nmp3dDV0YTR4cjRya3pweTM0MDFldmxveXdwMGlwMWY5ZHRmNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tpVKvAabWt3G5csMkT/giphy.gif)
 
 
-For more about statistics, check out [Statistics How To](https://www.statisticshowto.com/).
+To learn more about statistics, check out [Statistics How To](https://www.statisticshowto.com/).
