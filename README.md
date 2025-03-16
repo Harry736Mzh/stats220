@@ -1,11 +1,15 @@
-# stats220
+# Stats220
+## About This Repository
 
-This is my repo for STATS 220. 
+This is my repo for STATS 220. Here's a little about me:
 
-A little about me:
+- **Bold**: I am undertaking a degree in *Mathematics*.
+- **Italic**: I am taking STATS 220 because I'm very interested in data and numbers.
 
-- I am undertaking a degree in Mathematics.
-- I am taking STATS 220 because I'm very interested in data and numbers, and when I play games, I open the data in the game, such as network latency and fps, and I am very interested in data changes.
-- I am interested in learning about everything about data.
+### My Interests
+1. When I play games, I open the data in the game, such as network latency and fps.
+2. I am very interested in how data changes.
 
-A meme that captures how I currently feel about my university studies is ![](https://c.tenor.com/8druEACXtX8AAAAd/tenor.gif)
+![Meme About My Studies](https://c.tenor.com/8druEACXt8AAAAd/tenor.gif) <!-- Use a different GIF URL here -->
+
+For more fun, visit [GitHub's Markdown Guide](https://guides.github.com/features/mastering-markdown/).
