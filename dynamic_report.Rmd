@@ -3,11 +3,13 @@ title: Daily Physical Activity Analysis Report
 output: html_fragment
 ---
 
+
 ```{r setup, include=FALSE}
 # Load libraries and set chunk options
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 library(tidyverse)
 library(ggplot2)
+
 # Load and process data
 latest_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-bRmCHvXXjh-93MVu9IGikbUI40IfQrAPRmlsJCxQo5tFVxsIxdvWwpKbkuA7PPo2YA54ex9qTX5Z/pub?output=csv") %>% 
   rename(
@@ -85,59 +87,49 @@ This report analyzes the daily physical activity data of 22 respondents, includi
 
 
 ```{r}
-# Load and process data
-latest_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-bRmCHvXXjh-93MVu9IGikbUI40IfQrAPRmlsJCxQo5tFVxsIxdvWwpKbkuA7PPo2YA54ex9qTX5Z/pub?output=csv") %>% 
-  rename(
-    survey_time = 1,
-    walking_status = 2,
-    walk_duration = 3,
-    records_steps = 4,
-    daily_steps = 5,
-    other_exercise = 6
-  )
-
-# Calculate statistics
-walk_stats <- latest_data %>%
+# Dynamic summary text
+total_respondents <- nrow(latest_data)
+walkers_percentage <- round(mean(latest_data$walking_status == "Yes") * 100, 1)
+# Walking duration distribution
+latest_data %>%
   filter(walking_status == "Yes") %>%
-  summarise(
-    avg_duration = mean(walk_duration, na.rm = TRUE),
-    avg_steps = mean(daily_steps, na.rm = TRUE)
-  )
-
-walk_summary <- latest_data %>%
-  count(walking_status) %>%
-  mutate(percentage = n / sum(n) * 100)
-
-exercise_data <- latest_data %>%
-  filter(walking_status == "No" & !is.na(other_exercise)) %>%
-  mutate(exercise_type = case_when(
-    str_detect(tolower(other_exercise), "swim") ~ "Swimming",
-    str_detect(tolower(other_exercise), "run") ~ "Running",
-    str_detect(tolower(other_exercise), "fit") ~ "Fitness",
-    str_detect(tolower(other_exercise), "basket") ~ "Basketball",
-    str_detect(tolower(other_exercise), "foot") ~ "Football",
-    TRUE ~ "Other"
-  ))
-# Visualize walking duration distribution
-ggplot(filter(latest_data, walking_status == "Yes"), 
-       aes(x = factor(walk_duration))) +
-  geom_bar(fill = "#3498db", alpha = 0.8, width = 0.7) +
-  labs(x = "Walking Duration (hours)", y = "Number of People") +
+  ggplot(aes(x = factor(walk_duration))) +
+  geom_bar(fill = "#3498db", alpha = 0.8) +
+  labs(
+    title = "Daily Walking Duration Distribution",
+    x = "Walking Duration (hours)",
+    y = "Number of People"
+  ) +
   theme_minimal() +
-  theme(plot.title = element_text(hjust = 0.5, size = 14),
-        axis.text = element_text(size = 11),
-        panel.grid.minor = element_blank())
-
-# Visualize exercise preferences
+  theme(plot.title = element_text(hjust = 0.5))
+# Daily step count distribution
+latest_data %>%
+  filter(!is.na(daily_steps) & daily_steps > 0) %>%
+  ggplot(aes(x = daily_steps)) +
+  geom_histogram(binwidth = 1000, fill = "#2ecc71", alpha = 0.8) +
+  labs(
+    title = "Distribution of Daily Step Counts",
+    subtitle = "(For respondents who recorded steps)",
+    x = "Step Count",
+    y = "Number of People"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+# Exercise preference plot
 exercise_data %>%
   count(exercise_type) %>%
   ggplot(aes(x = reorder(exercise_type, n), y = n)) +
-  geom_col(fill = "#e74c3c", alpha = 0.8, width = 0.7) +
+  geom_col(fill = "#e74c3c", alpha = 0.8) +
   coord_flip() +
-  labs(x = "Exercise Type", y = "Number of People") +
+  labs(
+    title = "Exercise Preferences Among Non-Walkers",
+    x = "Exercise Type",
+    y = "Number of People"
+  ) +
   theme_minimal() +
-  theme(plot.title = element_text(hjust = 0.5, size = 14),
-        axis.text = element_text(size = 11))
+  theme(plot.title = element_text(hjust = 0.5))
+
 
 ```
 
